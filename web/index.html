@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aerogen — Diffuser Design</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">AEROGEN <span>Ground-Effect Diffuser Lab</span></div>
+    <div class="status" id="status">Ready</div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel">
+      <section>
+        <h2>Results</h2>
+        <div class="metric hero"><label>Downforce</label><strong id="df">—</strong><small>N</small></div>
+        <div class="metric-grid">
+          <div><label>C<sub>L</sub> proxy</label><span id="cl">—</span></div>
+          <div><label>Floor angle</label><span id="angle">—</span></div>
+          <div><label>Sep. risk</label><span id="risk">—</span></div>
+          <div><label>Cp recovery</label><span id="cp">—</span></div>
+        </div>
+      </section>
+
+      <section class="conf-section">
+        <h2>Conference metrics</h2>
+        <div class="metric hero conf"><label>Validated DF (1.8 m)</label><strong id="df-val">—</strong><small>N</small></div>
+        <div class="metric-grid">
+          <div><label>Model match</label><span id="agree">—</span></div>
+          <div><label>vs baseline</label><span id="vsbase">—</span></div>
+          <div><label>Perf. index</label><span id="perf">—</span></div>
+          <div><label>Cal. factor k</label><span id="calib-k">—</span></div>
+        </div>
+        <button id="btn-validate" class="ghost validate-btn">Run validation suite</button>
+        <div class="validate-status" id="validate-status"></div>
+      </section>
+
+      <section>
+        <h2>View</h2>
+        <div class="seg" id="view-seg">
+          <button class="active" data-view="2d">2D Flow</button>
+          <button data-view="3d">3D Model</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Mode</h2>
+        <div class="seg" id="mode-seg">
+          <button class="active" data-mode="simple">2-point</button>
+          <button data-mode="pro">6-point</button>
+        </div>
+      </section>
+
+      <section id="layers-section">
+        <h2>Layers</h2>
+        <label class="chk"><input type="checkbox" id="ly-pressure" checked> Pressure</label>
+        <label class="chk"><input type="checkbox" id="ly-arrows" checked> Arrows</label>
+        <label class="chk"><input type="checkbox" id="ly-particles" checked> Particles</label>
+        <label class="chk"><input type="checkbox" id="ly-mesh"> FEM mesh</label>
+        <label class="chk"><input type="checkbox" id="ly-ghost" checked> Baseline shape</label>
+        <label class="chk view-3d-only hidden"><input type="checkbox" id="ly-spin"> Auto-rotate 3D</label>
+      </section>
+
+      <section>
+        <h2>Geometry</h2>
+        <div id="sliders"></div>
+        <label class="field">Inlet velocity <span id="uin-val">30</span> m/s
+          <input type="range" id="uin" min="10" max="60" step="1" value="30">
+        </label>
+      </section>
+
+      <section class="cfd-section">
+        <h2>Heavy CFD</h2>
+        <p class="hint">3D Laplace (~45k ячеек). LU-факторизация 30–90 с на 8% — нормально. По завершении обновит метрики и переключит на 3D.</p>
+        <button id="btn-cfd3d" class="cfd">3D CFD (Python Laplace)</button>
+        <div class="cfd-status" id="cfd-status">Idle</div>
+      </section>
+
+      <section class="actions">
+        <button id="btn-run" class="primary">Run</button>
+        <button id="btn-opt" class="accent">Optimize</button>
+        <button id="btn-reset" class="ghost">Reset</button>
+      </section>
+    </aside>
+
+    <div class="viewport">
+      <div class="canvas-stack">
+        <canvas id="view2d" class="view-canvas"></canvas>
+        <canvas id="view3d" class="view-canvas hidden"></canvas>
+      </div>
+      <div class="hud">
+        <span id="hud-title">2D potential-flow field</span>
+        <span id="hud-info">—</span>
+      </div>
+      <canvas id="chart" width="640" height="100"></canvas>
+    </div>
+  </main>
+
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

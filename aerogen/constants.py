@@ -1,0 +1,22 @@
+import numpy as np
+RHO = 1.225
+U_IN = 30.0
+TUNNEL_L = 5.0
+TUNNEL_H = 2.0
+CAR_WIDTH = 1.8
+SLOPE_LIMIT = 0.25
+MAX_DIFFUSER_SLOPE = float(np.tan(np.deg2rad(12.0)))
+PENALTY_BASE = 100000.0
+DIFFUSER_X_MIN = 1.5
+DIFFUSER_X_MAX = 3.5
+J_EPS = 1e-07
+STEP_TOL = 1e-05
+MODE_SIMPLE = 'simple'
+MODE_PRO = 'pro'
+Y_MIN, Y_MAX = (0.05, 0.4)
+Y_ENDPOINT = 0.05
+MAX_STEP_PRO = Y_MAX - Y_MIN
+BEZIER_X_SIMPLE = np.array([1.5, 2.16, 2.83, 3.5])
+BEZIER_X_PRO = np.array([1.5, 1.9, 2.3, 2.7, 3.1, 3.5])
+PRO_DEFAULTS = [0.05, 0.1, 0.15, 0.12, 0.1, 0.05]
+WEB_DIR_NAME = 'web'
